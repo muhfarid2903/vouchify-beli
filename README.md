@@ -28,8 +28,8 @@ Social · FAQ · About · Contact · Footer. Plus modal voucher, modal recovery,
 ## Konfigurasi
 Di bagian atas `<script>` pada `index.html`:
 - `API_BASE` = `https://vapi.balanglompo.com` (bisa dioverride via `window.__ENV__.VITE_API_BASE_URL`).
-- `WHATSAPP` = `62812xxxxxxx` — **WAJIB diganti** ke nomor WA admin (format `62…`, tanpa `+`/spasi).
-- `IG_HANDLE` = `warkopsaja` — ganti ke handle Instagram yang benar.
+- `WHATSAPP` = `6281354389172` — nomor WA admin (format `62…`, tanpa `+`/spasi).
+- `IG_HANDLE` = `_warkop_saja` — handle Instagram.
 - Gateway snap.js: `https://pay.balanglompo.com/snap.js`.
 
 Slot sosial TikTok/Facebook sudah disiapkan (dikomentari) di bagian Social.
