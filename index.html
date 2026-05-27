@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0071E3" />
+    <title>Beli Voucher WiFi — Balanglompo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Popup pembayaran gateway (window.PaymentGateway.pay) -->
+    <script defer src="https://pay.balanglompo.com/snap.js"></script>
+    <style>
+      :root {
+        --bg: #f5f5f7; --card: #fff;
+        --text: #1d1d1f; --muted: #6e6e73;
+        --border: #e8e8ed; --accent: #0071e3; --accent2: #0077ed;
+        --ok: #34c759; --warn: #ff9f0a; --bad: #ff3b30;
+        --font: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { font-family: var(--font); max-width: 480px; margin: 0 auto; padding: 16px; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+      .brand { font-weight: 800; font-size: 1.5rem; letter-spacing: -.02em; margin: 6px 2px 0; }
+      .tagline { color: var(--muted); font-size: .92rem; margin: 2px 2px 12px; }
+      .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 16px; margin: 12px 0; box-shadow: 0 2px 12px rgba(0,0,0,.05); }
+      h2 { font-size: 1.05rem; margin: 0 0 10px; }
+      .pkg { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px; border: 1.5px solid var(--border); border-radius: 14px; margin-bottom: 10px; cursor: pointer; transition: border-color .15s, background .15s; }
+      .pkg:hover { border-color: #c7c7cc; }
+      .pkg.sel { border-color: var(--accent); background: #f0f7ff; }
+      .pkg .nm { font-weight: 600; }
+      .pkg .du { color: var(--muted); font-size: .85rem; }
+      .pkg .pr { font-weight: 700; white-space: nowrap; }
+      label { display: block; font-size: .85rem; color: var(--muted); margin: 10px 2px 4px; }
+      input { width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 12px; font-size: 1rem; font-family: inherit; }
+      button { background: var(--accent); color: #fff; border: 0; border-radius: 980px; padding: 14px 16px; font-size: 1.02rem; font-weight: 600; cursor: pointer; width: 100%; margin-top: 14px; transition: background .15s; }
+      button:hover { background: var(--accent2); }
+      button:disabled { opacity: .5; cursor: default; }
+      .muted { color: var(--muted); font-size: .9rem; }
+      .center { text-align: center; }
+      .big { font-size: 1.2rem; font-weight: 700; }
+      .cred { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #f5f5f7; border-radius: 12px; padding: 12px 14px; margin: 8px 0; }
+      .cred .k { color: var(--muted); font-size: .8rem; }
+      .cred .v { font-size: 1.25rem; font-weight: 700; font-family: ui-monospace, Menlo, monospace; letter-spacing: .04em; }
+      .copy { width: auto; margin: 0; padding: 8px 12px; font-size: .85rem; border-radius: 10px; }
+      .spin { width: 30px; height: 30px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: sp 1s linear infinite; margin: 8px auto; }
+      @keyframes sp { to { transform: rotate(360deg); } }
+      .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: .8rem; font-weight: 600; }
+      .pill.ok { color: var(--ok); background: #34c75920; }
+      .pill.warn { color: var(--warn); background: #ff9f0a20; }
+      .err { color: var(--bad); font-size: .9rem; margin-top: 8px; }
+    </style>
+  </head>
+  <body>
+    <div class="brand">Balanglompo WiFi</div>
+    <p class="tagline">Beli voucher hotspot — bayar via QRIS, voucher langsung tampil.</p>
+    <div id="app"><div class="card center"><div class="spin"></div><p class="muted">Memuat paket…</p></div></div>
+
+    <script>
+      const API = 'https://vapi.balanglompo.com';
+      const REF_KEY = 'beli_ref';
+      const URL_KEY = 'beli_url';
+      const rupiah = (n) => 'Rp' + (Number(n) || 0).toLocaleString('id-ID');
+      const app = document.getElementById('app');
+      let packages = [];
+      let selected = null;
+      let pollTimer = null;
+      let curUrl = null; // payment_url terakhir, untuk "buka lagi"
+
+      async function getJSON(path, opts) {
+        const res = await fetch(API + path, opts);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.detail || ('HTTP ' + res.status));
+        return data;
+      }
+      function esc(s) { return String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+      // ---------- Langkah 1: pilih paket + isi data ----------
+      async function loadPackages() {
+        try { packages = await getJSON('/api/public/packages'); }
+        catch (e) {
+          app.innerHTML = `<div class="card"><p class="err">Gagal memuat paket: ${esc(e.message)}</p><button onclick="loadPackages()">Coba lagi</button></div>`;
+          return;
+        }
+        if (!packages.length) { app.innerHTML = `<div class="card"><p class="muted">Belum ada paket tersedia.</p></div>`; return; }
+        renderPicker();
+      }
+
+      function renderPicker(name = '', phone = '') {
+        const items = packages.map((p) => `
+          <div class="pkg ${selected && selected.key === p.key ? 'sel' : ''}" onclick="selectPkg(${p.key})">
+            <div><div class="nm">${esc(p.name)}</div><div class="du">${esc(p.duration || '')}</div></div>
+            <div class="pr">${rupiah(p.price)}</div>
+          </div>`).join('');
+        app.innerHTML = `
+          <div class="card">
+            <h2>Pilih paket</h2>
+            ${items}
+            <label for="nm">Nama</label>
+            <input id="nm" placeholder="Nama Anda" value="${esc(name)}" />
+            <label for="hp">No. HP / WhatsApp</label>
+            <input id="hp" inputmode="tel" placeholder="08xxxxxxxxxx" value="${esc(phone)}" />
+            <button id="payBtn" onclick="startPay()" ${selected ? '' : 'disabled'}>
+              ${selected ? 'Beli & Bayar ' + rupiah(selected.price) : 'Pilih paket dulu'}
+            </button>
+            <div id="formErr" class="err"></div>
+          </div>`;
+      }
+
+      function selectPkg(key) {
+        const name = (document.getElementById('nm')?.value) || '';
+        const phone = (document.getElementById('hp')?.value) || '';
+        selected = packages.find((p) => p.key === key) || null;
+        renderPicker(name, phone); // pertahankan input yang sudah diketik
+      }
+
+      async function startPay() {
+        const name = (document.getElementById('nm').value || '').trim();
+        const phone = (document.getElementById('hp').value || '').trim();
+        const errEl = document.getElementById('formErr');
+        if (!selected) return;
+        if (!name) { errEl.textContent = 'Nama wajib diisi.'; return; }
+        if (phone.length < 3) { errEl.textContent = 'No. HP wajib diisi.'; return; }
+        const btn = document.getElementById('payBtn');
+        btn.disabled = true; btn.textContent = 'Memproses…';
+        let resp;
+        try {
+          resp = await getJSON('/api/public/checkout', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ package_key: selected.key, buyer_name: name, buyer_phone: phone }),
+          });
+        } catch (e) {
+          errEl.textContent = 'Gagal membuat pembayaran: ' + e.message;
+          btn.disabled = false; btn.textContent = 'Beli & Bayar ' + rupiah(selected.price);
+          return;
+        }
+        localStorage.setItem(REF_KEY, resp.reference);
+        localStorage.setItem(URL_KEY, resp.payment_url || '');
+        curUrl = resp.payment_url || null;
+        openPayment(curUrl);
+        watch(resp.reference);
+      }
+
+      // ---------- Langkah 2: popup pembayaran gateway ----------
+      function openPayment(url) {
+        if (!url) return;
+        if (window.PaymentGateway) window.PaymentGateway.pay(url, { onSuccess: () => {}, onClose: () => {} });
+        else window.open(url, '_blank'); // fallback bila snap.js belum termuat
+      }
+      function reopen() { openPayment(curUrl); }
+
+      // ---------- Langkah 3: polling sampai voucher siap ----------
+      function watch(reference) {
+        if (pollTimer) clearInterval(pollTimer);
+        renderWaiting(reference, 'Menunggu pembayaran…');
+        const tick = async () => {
+          let s;
+          try { s = await getJSON('/api/public/payments/' + encodeURIComponent(reference)); }
+          catch { return; }
+          if (!curUrl && s.payment_url) { curUrl = s.payment_url; localStorage.setItem(URL_KEY, s.payment_url); }
+          if (s.stage === 'ready' && s.voucher) { done(); return renderVoucher(s); }
+          if (s.stage === 'provision_failed') { clearInterval(pollTimer); return renderFailed(reference); }
+          renderWaiting(reference, s.status === 'PAID'
+            ? 'Pembayaran diterima — menyiapkan voucher…'
+            : 'Menunggu konfirmasi pembayaran (admin memverifikasi bukti). Voucher otomatis tampil saat siap.');
+        };
+        tick();
+        pollTimer = setInterval(tick, 4000);
+      }
+      function done() { if (pollTimer) clearInterval(pollTimer); localStorage.removeItem(REF_KEY); localStorage.removeItem(URL_KEY); }
+
+      function renderWaiting(reference, msg) {
+        app.innerHTML = `
+          <div class="card center">
+            <div class="spin"></div>
+            <p class="muted">${esc(msg)}</p>
+            <p class="muted" style="margin-top:14px">No. referensi:<br><b>${esc(reference)}</b></p>
+            ${curUrl ? `<button class="copy" style="margin:12px auto 0;display:inline-block" onclick="reopen()">Buka lagi jendela bayar</button>` : ''}
+          </div>`;
+      }
+
+      function renderVoucher(s) {
+        const v = s.voucher;
+        app.innerHTML = `
+          <div class="card center">
+            <span class="pill ok">✅ Pembayaran berhasil</span>
+            <p class="big" style="margin:12px 0 2px">Voucher WiFi Anda</p>
+            <p class="muted">${esc(v.profile_name || '')}${v.duration ? ' · ' + esc(v.duration) : ''}</p>
+            <div class="cred"><div><div class="k">Username</div><div class="v">${esc(v.username)}</div></div>
+              <button class="copy" onclick="cp('${esc(v.username)}',this)">Salin</button></div>
+            <div class="cred"><div><div class="k">Password</div><div class="v">${esc(v.password)}</div></div>
+              <button class="copy" onclick="cp('${esc(v.password)}',this)">Salin</button></div>
+          </div>
+          <div class="card">
+            <h2>Cara connect</h2>
+            <ol class="muted" style="margin:0;padding-left:18px;line-height:1.7">
+              <li>Sambungkan perangkat ke WiFi hotspot Balanglompo.</li>
+              <li>Halaman login terbuka otomatis (atau buka browser, ketik alamat apa saja).</li>
+              <li>Masukkan <b>username</b> &amp; <b>password</b> di atas, lalu login.</li>
+            </ol>
+            <button onclick="reset()">Beli lagi</button>
+          </div>`;
+      }
+
+      function renderFailed(reference) {
+        app.innerHTML = `
+          <div class="card center">
+            <span class="pill warn">Pembayaran diterima</span>
+            <p class="big" style="margin:12px 0 2px">Voucher sedang diproses</p>
+            <p class="muted">Pembayaran Anda sudah masuk, tapi voucher belum bisa dibuat otomatis. Hubungi admin dengan menyebut no. referensi:</p>
+            <p class="big" style="margin-top:10px">${esc(reference)}</p>
+            <button onclick="reset()">Kembali</button>
+          </div>`;
+      }
+
+      function reset() { done(); selected = null; curUrl = null; renderPicker(); }
+      function cp(t, btn) { navigator.clipboard?.writeText(t).then(() => { const o = btn.textContent; btn.textContent = '✓'; setTimeout(() => (btn.textContent = o), 1200); }); }
+
+      // ---------- Init: lanjutkan transaksi yang belum selesai ----------
+      (async function init() {
+        await loadPackages();
+        const pending = localStorage.getItem(REF_KEY);
+        if (pending) { curUrl = localStorage.getItem(URL_KEY) || null; watch(pending); }
+      })();
+    </script>
+  </body>
+</html>
