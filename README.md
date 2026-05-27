@@ -34,11 +34,6 @@ Di bagian atas `<script>` pada `index.html`:
 
 Slot sosial TikTok/Facebook sudah disiapkan (dikomentari) di bagian Social.
 
-## Deploy (Coolify / Docker)
-- Build pack **Dockerfile**. Container kini jalan **non-root di port `3000`**
-  (`nginx.conf` + `docker-compose.yml` disertakan; gzip, cache 7d aset, no-cache `index.html`).
-- ⚠️ **Ganti port tujuan di Coolify dari `80` → `3000`** untuk domain `beli.balanglompo.com`,
-  kalau tidak deploy akan gagal terhubung. (Versi lama menyajikan di port 80 sebagai root.)
-- Backend harus mengizinkan origin ini di `CORS_ORIGINS`.
-
-Lokal: `docker compose up --build` lalu buka `http://localhost:3000`.
+## Deploy (Coolify)
+Build pack **Dockerfile**, domain **beli.balanglompo.com**, port **80**.
+Backend harus mengizinkan origin ini di `CORS_ORIGINS`.
