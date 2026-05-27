@@ -110,14 +110,14 @@
       .state .err-msg { color: var(--bad); margin-bottom: 14px; }
 
       /* ---------- How it works ---------- */
-      .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-      .step { text-align: center; padding: 8px; }
-      .step .n { width: 44px; height: 44px; border-radius: 50%; background: var(--text); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-      .step h3 { font-size: 1.05rem; margin-bottom: 6px; }
+      .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; padding-bottom: 48px; border-bottom: 1px solid var(--line2); }
+      .step { text-align: left; }
+      .step .n { font-size: .9rem; font-weight: 600; color: var(--muted2); margin-bottom: 12px; }
+      .step h3 { font-size: 1.15rem; margin-bottom: 8px; }
       .step p { color: var(--muted); font-size: .92rem; margin: 0; }
 
-      /* ---------- Social / Contact cards ---------- */
-      .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+      /* ---------- Social cards (icon kiri) ---------- */
+      .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; max-width: 760px; margin: 0 auto; }
       .lcard { display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid var(--line2); border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow); transition: transform .15s, box-shadow .15s; }
       a.lcard:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
       .lcard .ic { width: 46px; height: 46px; border-radius: 12px; background: var(--bg2); display: flex; align-items: center; justify-content: center; flex: none; color: var(--text); }
@@ -125,6 +125,15 @@
       .lcard .ic.wa { background: #25d366; color: #fff; }
       .lcard .t { font-weight: 600; }
       .lcard .s { color: var(--muted); font-size: .88rem; }
+
+      /* ---------- Contact cards (icon atas, rata tengah) ---------- */
+      .ccards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+      .ccard { background: #fff; border: 1px solid var(--line2); border-radius: 16px; padding: 28px 20px; text-align: center; box-shadow: var(--shadow); transition: transform .15s, box-shadow .15s; }
+      a.ccard:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+      .ccard .ic { width: 46px; height: 46px; border-radius: 12px; background: var(--bg2); color: var(--text); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+      .ccard .ic.wa { background: #25d366; color: #fff; }
+      .ccard .t { font-weight: 600; margin-bottom: 5px; }
+      .ccard .s { color: var(--muted); font-size: .9rem; }
 
       /* ---------- FAQ ---------- */
       .faq { max-width: 760px; margin: 0 auto; }
@@ -136,19 +145,20 @@
       .faq-a.open { max-height: 320px; }
       .faq-a p { color: var(--muted); margin: 0 4px 20px; font-size: .96rem; }
 
-      /* ---------- About highlights ---------- */
-      .highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 30px; }
-      .hl { background: #fff; border: 1px solid var(--line2); border-radius: 16px; padding: 22px; text-align: center; box-shadow: var(--shadow); }
-      .hl .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--bg2); color: var(--accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
-      .hl h3 { font-size: 1.05rem; margin-bottom: 5px; }
-      .hl p { color: var(--muted); font-size: .9rem; margin: 0; }
-      .about-body { max-width: 640px; margin: 0 auto; text-align: center; color: var(--muted); font-size: 1.08rem; }
+      /* ---------- About highlights (label besar + caption) ---------- */
+      .highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; padding-top: 40px; border-top: 1px solid var(--line2); }
+      .hl { text-align: center; }
+      .hl h3 { font-size: 1.9rem; font-weight: 700; letter-spacing: -.03em; margin-bottom: 4px; }
+      .hl p { color: var(--muted); font-size: .92rem; margin: 0; }
+      .about-body { max-width: 600px; margin: 0 auto; text-align: center; color: var(--muted); font-size: 1.08rem; }
+      .about-body p { margin: 0 0 16px; }
+      .about-body strong { color: var(--text); font-weight: 600; }
 
       /* ---------- Footer ---------- */
-      footer { background: var(--bg2); border-top: 1px solid var(--line2); padding: 40px 0; color: var(--muted); font-size: .9rem; }
-      footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; justify-content: space-between; }
-      footer .fbrand { font-weight: 700; color: var(--text); font-size: 1.05rem; }
-      footer a { color: var(--accent); font-weight: 500; }
+      footer { background: var(--bg2); border-top: 1px solid var(--line2); padding: 44px 0; color: var(--muted); font-size: .9rem; }
+      footer .wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+      footer .fbrand { font-weight: 700; color: var(--text); font-size: 1.1rem; }
+      footer a { color: var(--accent); font-weight: 500; margin-top: 6px; }
 
       /* ---------- Toasts ---------- */
       #toasts { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 200; display: flex; flex-direction: column; gap: 8px; align-items: center; width: calc(100% - 32px); max-width: 420px; }
@@ -262,12 +272,12 @@
       <!-- ===================== HOW IT WORKS ===================== -->
       <section id="how">
         <div class="wrap">
-          <div class="sec-head"><h2 data-i18n="how.title">How it works</h2></div>
+          <div class="sec-head"><h2 data-i18n="how.title">How it works</h2><p data-i18n="how.sub">Four steps.</p></div>
           <div class="steps">
-            <div class="step"><div class="n">1</div><h3 data-i18n="how.s1t">Choose a package</h3><p data-i18n="how.s1d">Pick the plan that matches your needs.</p></div>
-            <div class="step"><div class="n">2</div><h3 data-i18n="how.s2t">Pay online</h3><p data-i18n="how.s2d">Pay securely with QRIS or your favorite method.</p></div>
-            <div class="step"><div class="n">3</div><h3 data-i18n="how.s3t">Get your voucher</h3><p data-i18n="how.s3d">Your username and password appear on screen.</p></div>
-            <div class="step"><div class="n">4</div><h3 data-i18n="how.s4t">Connect</h3><p data-i18n="how.s4d">Join the hotspot and log in. You are online.</p></div>
+            <div class="step"><div class="n">01</div><h3 data-i18n="how.s1t">Choose a package</h3><p data-i18n="how.s1d">Set the duration and speed that suit you.</p></div>
+            <div class="step"><div class="n">02</div><h3 data-i18n="how.s2t">Pay</h3><p data-i18n="how.s2d">QRIS, GoPay, bank transfer, and more.</p></div>
+            <div class="step"><div class="n">03</div><h3 data-i18n="how.s3t">Get your voucher</h3><p data-i18n="how.s3d">Username and password appear right on screen.</p></div>
+            <div class="step"><div class="n">04</div><h3 data-i18n="how.s4t">Connect</h3><p data-i18n="how.s4d">Log in to the hotspot and go online.</p></div>
           </div>
         </div>
       </section>
@@ -296,20 +306,24 @@
       <!-- ===================== FAQ ===================== -->
       <section id="faq">
         <div class="wrap">
-          <div class="sec-head"><h2 data-i18n="faq.title">Frequently asked questions</h2></div>
-          <div class="faq" id="faq"></div>
+          <div class="sec-head"><h2 data-i18n="faq.title">Questions</h2><p data-i18n="faq.sub">Answers to the things people ask most.</p></div>
+          <div class="faq" id="faq-list"></div>
         </div>
       </section>
 
       <!-- ===================== ABOUT ===================== -->
       <section id="about" class="alt">
         <div class="wrap">
-          <div class="sec-head"><h2 data-i18n="about.title">About Warkopsaja</h2></div>
-          <p class="about-body" data-i18n="about.body">Affordable, prepaid WiFi hotspot internet for the people of Pulau Balang Lompo. No paperwork, no contracts — just pick a plan and connect.</p>
+          <div class="sec-head"><h2 data-i18n="about.title">About</h2><p data-i18n="about.sub">Internet for Pulau Balang Lompo.</p></div>
+          <div class="about-body">
+            <p data-i18n-html="about.body1">Prepaid WiFi hotspot internet for the people of <strong>Pulau Balang Lompo, Sulawesi Selatan</strong>.</p>
+            <p data-i18n="about.body2">Access for everyone — students, workers, traders. No sign-up. No physical card. Pick a plan, pay, connect.</p>
+            <p data-i18n="about.body3">Pay only for what you use.</p>
+          </div>
           <div class="highlights">
-            <div class="hl"><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div><h3 data-i18n="about.h1t">24/7 service</h3><p data-i18n="about.h1d">Buy and connect any time, day or night.</p></div>
-            <div class="hl"><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3 data-i18n="about.h2t">Instant vouchers</h3><p data-i18n="about.h2d">Your voucher is created automatically after payment.</p></div>
-            <div class="hl"><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h3 data-i18n="about.h3t">Prepaid, no contract</h3><p data-i18n="about.h3d">Pay only for what you use. Cancel any time.</p></div>
+            <div class="hl"><h3 data-i18n="about.h1t">24/7</h3><p data-i18n="about.h1d">Always on</p></div>
+            <div class="hl"><h3 data-i18n="about.h2t">Instant</h3><p data-i18n="about.h2d">Auto vouchers</p></div>
+            <div class="hl"><h3 data-i18n="about.h3t">Prepaid</h3><p data-i18n="about.h3d">No contract</p></div>
           </div>
         </div>
       </section>
@@ -317,19 +331,22 @@
       <!-- ===================== CONTACT ===================== -->
       <section id="contact">
         <div class="wrap">
-          <div class="sec-head"><h2 data-i18n="contact.title">Contact</h2></div>
-          <div class="cards">
-            <a class="lcard" id="wa-contact" href="#" target="_blank" rel="noopener">
+          <div class="sec-head"><h2 data-i18n="contact.title">Contact</h2><p data-i18n="contact.sub">Our team is ready to help.</p></div>
+          <div class="ccards">
+            <a class="ccard" id="wa-contact" href="#" target="_blank" rel="noopener">
               <span class="ic wa" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.3 0-.4.1-.5l.4-.5.3-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.6 4 5.3 5.3 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg></span>
-              <span><span class="t" data-i18n="contact.wa">WhatsApp</span><br /><span class="s" data-i18n="contact.wadesc">Tap to chat with our admin</span></span>
+              <div class="t" data-i18n="contact.wa">WhatsApp</div>
+              <div class="s">+62 813-5438-9172</div>
             </a>
-            <div class="lcard">
+            <div class="ccard">
               <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
-              <span><span class="t" data-i18n="contact.loc">Location</span><br /><span class="s" data-i18n="contact.locval">Pulau Balang Lompo, Pangkep, Sulawesi Selatan</span></span>
+              <div class="t" data-i18n="contact.loc">Location</div>
+              <div class="s" data-i18n="contact.locval">Pulau Balang Lompo, Sulawesi Selatan, Indonesia</div>
             </div>
-            <div class="lcard">
+            <div class="ccard">
               <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></span>
-              <span><span class="t" data-i18n="contact.hours">Operating hours</span><br /><span class="s" data-i18n="contact.hoursval">Every day, 24 hours (auto vouchers)</span></span>
+              <div class="t" data-i18n="contact.hours">Operating hours</div>
+              <div class="s" data-i18n="contact.hoursval">24/7 service · WhatsApp support 08.00–22.00 WITA</div>
             </div>
           </div>
         </div>
@@ -339,11 +356,9 @@
     <!-- ===================== FOOTER ===================== -->
     <footer>
       <div class="wrap">
-        <div>
-          <div class="fbrand">Warkopsaja</div>
-          <div data-i18n="footer.loc">Pulau Balang Lompo, Sulawesi Selatan</div>
-        </div>
-        <div><a id="wa-footer" href="#" target="_blank" rel="noopener" data-i18n="footer.help">Need help? Chat us &rarr;</a></div>
+        <div class="fbrand">Warkopsaja</div>
+        <div data-i18n="footer.loc">Pulau Balang Lompo, Sulawesi Selatan</div>
+        <a id="wa-footer" href="#" target="_blank" rel="noopener" data-i18n="footer.help">Need help? Chat us &rarr;</a>
       </div>
     </footer>
 
@@ -374,29 +389,31 @@
           'pkg.error': 'Failed to load packages.', 'pkg.retry': 'Try again',
           'pkg.popular': 'Popular', 'pkg.choose': 'Choose', 'pkg.free': 'Free',
           'pkg.active': 'Active', 'pkg.speed': 'Speed',
-          'how.title': 'How it works',
-          'how.s1t': 'Choose a package', 'how.s1d': 'Pick the plan that matches your needs.',
-          'how.s2t': 'Pay online', 'how.s2d': 'Pay securely with QRIS or your favorite method.',
-          'how.s3t': 'Get your voucher', 'how.s3d': 'Your username and password appear on screen.',
-          'how.s4t': 'Connect', 'how.s4d': 'Join the hotspot and log in. You are online.',
-          'social.title': 'Follow us', 'social.sub': 'Updates, tips, and support on your favorite app.',
-          'social.ig': 'Instagram', 'social.wa': 'WhatsApp', 'social.wad': 'Chat us anytime',
-          'faq.title': 'Frequently asked questions',
-          'faq.q1': 'How long is a voucher valid?', 'faq.a1': 'Each plan shows its active period (for example 5 days). The clock starts the first time you log in, and the voucher stays valid until the period ends.',
-          'faq.q2': 'Can I use one voucher on several devices?', 'faq.a2': 'Each voucher is meant for one device at a time. To connect another device, buy another voucher.',
-          'faq.q3': 'I forgot my username or password.', 'faq.a3': 'Your username and password are shown right after payment and can be copied. If you lost them, contact our admin on WhatsApp with your reference number.',
-          'faq.q4': 'How do I pay?', 'faq.a4': 'Payment is online via QRIS and the available methods in the payment popup. After it is confirmed, your voucher appears automatically.',
-          'faq.q5': 'My internet feels slow.', 'faq.a5': 'Each plan has a speed limit (for example 7M/7M). Speed can also vary with signal and how many people are online. Move closer to the hotspot for a better signal.',
-          'faq.q6': 'I paid but my voucher has not appeared.', 'faq.a6': 'Keep this page open — the voucher appears automatically once payment is confirmed. If it still does not show, contact admin on WhatsApp with your reference number.',
-          'faq.q7': 'Can I get a refund?', 'faq.a7': 'Vouchers are prepaid digital goods, so they generally cannot be refunded once issued. If you were charged but received no voucher, contact admin and we will sort it out.',
-          'about.title': 'About Warkopsaja',
-          'about.body': 'Affordable, prepaid WiFi hotspot internet for the people of Pulau Balang Lompo. No paperwork, no contracts — just pick a plan and connect.',
-          'about.h1t': '24/7 service', 'about.h1d': 'Buy and connect any time, day or night.',
-          'about.h2t': 'Instant vouchers', 'about.h2d': 'Your voucher is created automatically after payment.',
-          'about.h3t': 'Prepaid, no contract', 'about.h3d': 'Pay only for what you use. Cancel any time.',
-          'contact.title': 'Contact', 'contact.wa': 'WhatsApp', 'contact.wadesc': 'Tap to chat with our admin',
-          'contact.loc': 'Location', 'contact.locval': 'Pulau Balang Lompo, Pangkep, Sulawesi Selatan',
-          'contact.hours': 'Operating hours', 'contact.hoursval': 'Every day, 24 hours (auto vouchers)',
+          'how.title': 'How it works', 'how.sub': 'Four steps.',
+          'how.s1t': 'Choose a package', 'how.s1d': 'Set the duration and speed that suit you.',
+          'how.s2t': 'Pay', 'how.s2d': 'QRIS, GoPay, bank transfer, and more.',
+          'how.s3t': 'Get your voucher', 'how.s3d': 'Username and password appear right on screen.',
+          'how.s4t': 'Connect', 'how.s4d': 'Log in to the hotspot and go online.',
+          'social.title': 'Follow us', 'social.sub': 'Plan updates and the latest promos.',
+          'social.ig': 'Instagram', 'social.wa': 'WhatsApp', 'social.wad': 'Chat us',
+          'faq.title': 'Questions', 'faq.sub': 'Answers to the things people ask most.',
+          'faq.q1': 'How long is the voucher active?', 'faq.a1': 'Each plan shows its active period (for example 5 days). The clock starts the first time you log in, and the voucher stays valid until the period ends.',
+          'faq.q2': 'Can I switch the voucher between my phone and laptop?', 'faq.a2': 'Each voucher is meant for one device at a time. To connect another device, buy another voucher.',
+          'faq.q3': 'What if I forget my username/password?', 'faq.a3': 'Your username and password are shown right after payment and can be copied. If you lost them, contact our admin on WhatsApp with your reference number.',
+          'faq.q4': 'Which payment methods are supported?', 'faq.a4': 'Online payment via QRIS, GoPay, bank transfer, and the other methods in the payment popup. Once confirmed, your voucher appears automatically.',
+          'faq.q5': 'My internet is slow — what can I do?', 'faq.a5': 'Each plan has a speed limit (for example 7M/7M). Speed can also vary with signal and how many people are online. Move closer to the hotspot for a better signal.',
+          'faq.q6': 'I already paid but the voucher has not appeared?', 'faq.a6': 'Keep this page open — the voucher appears automatically once payment is confirmed. If it still does not show, contact admin on WhatsApp with your reference number.',
+          'faq.q7': 'Can I get a refund if the voucher fails to issue?', 'faq.a7': 'Vouchers are prepaid digital goods, so they generally cannot be refunded once issued. If you were charged but received no voucher, contact admin and we will sort it out.',
+          'about.title': 'About', 'about.sub': 'Internet for Pulau Balang Lompo.',
+          'about.body1': 'Prepaid WiFi hotspot internet for the people of <strong>Pulau Balang Lompo, Sulawesi Selatan</strong>.',
+          'about.body2': 'Access for everyone — students, workers, traders. No sign-up. No physical card. Pick a plan, pay, connect.',
+          'about.body3': 'Pay only for what you use.',
+          'about.h1t': '24/7', 'about.h1d': 'Always on',
+          'about.h2t': 'Instant', 'about.h2d': 'Auto vouchers',
+          'about.h3t': 'Prepaid', 'about.h3d': 'No contract',
+          'contact.title': 'Contact', 'contact.sub': 'Our team is ready to help.', 'contact.wa': 'WhatsApp',
+          'contact.loc': 'Location', 'contact.locval': 'Pulau Balang Lompo, Sulawesi Selatan, Indonesia',
+          'contact.hours': 'Operating hours', 'contact.hoursval': '24/7 service · WhatsApp support 08.00–22.00 WITA',
           'footer.loc': 'Pulau Balang Lompo, Sulawesi Selatan', 'footer.help': 'Need help? Chat us →',
           'modal.checkout': 'Checkout', 'modal.voucherSub': 'WiFi hotspot voucher',
           'modal.name': 'Name', 'modal.namePh': 'Your name',
@@ -432,29 +449,31 @@
           'pkg.error': 'Gagal memuat paket.', 'pkg.retry': 'Coba lagi',
           'pkg.popular': 'Populer', 'pkg.choose': 'Pilih', 'pkg.free': 'Gratis',
           'pkg.active': 'Masa aktif', 'pkg.speed': 'Kecepatan',
-          'how.title': 'Cara pakai',
-          'how.s1t': 'Pilih paket', 'how.s1d': 'Pilih paket sesuai kebutuhan Anda.',
-          'how.s2t': 'Bayar online', 'how.s2d': 'Bayar aman lewat QRIS atau metode favorit Anda.',
-          'how.s3t': 'Terima voucher', 'how.s3d': 'Username & password langsung tampil di layar.',
-          'how.s4t': 'Konek', 'how.s4d': 'Sambung ke hotspot lalu login. Anda online.',
-          'social.title': 'Ikuti kami', 'social.sub': 'Info, tips, dan bantuan di aplikasi favorit Anda.',
-          'social.ig': 'Instagram', 'social.wa': 'WhatsApp', 'social.wad': 'Chat kami kapan saja',
-          'faq.title': 'Pertanyaan yang sering diajukan',
-          'faq.q1': 'Berapa lama voucher berlaku?', 'faq.a1': 'Tiap paket menampilkan masa aktifnya (misal 5 hari). Hitungan mulai saat pertama kali login, dan voucher berlaku sampai masa aktif habis.',
-          'faq.q2': 'Bisakah 1 voucher dipakai di beberapa perangkat?', 'faq.a2': 'Tiap voucher untuk satu perangkat dalam satu waktu. Untuk menyambungkan perangkat lain, beli voucher lagi.',
-          'faq.q3': 'Saya lupa username atau password.', 'faq.a3': 'Username & password tampil tepat setelah pembayaran dan bisa disalin. Kalau hilang, hubungi admin via WhatsApp dengan menyebut nomor referensi.',
-          'faq.q4': 'Bagaimana cara membayar?', 'faq.a4': 'Pembayaran online lewat QRIS dan metode yang tersedia di popup pembayaran. Setelah terkonfirmasi, voucher tampil otomatis.',
-          'faq.q5': 'Internet terasa lambat.', 'faq.a5': 'Tiap paket punya batas kecepatan (misal 7M/7M). Kecepatan juga dipengaruhi sinyal dan jumlah pengguna. Dekatkan perangkat ke hotspot untuk sinyal lebih baik.',
-          'faq.q6': 'Saya sudah bayar tapi voucher belum muncul.', 'faq.a6': 'Biarkan halaman ini terbuka — voucher muncul otomatis setelah pembayaran dikonfirmasi. Kalau tetap tidak muncul, hubungi admin via WhatsApp dengan nomor referensi.',
-          'faq.q7': 'Apakah bisa refund?', 'faq.a7': 'Voucher adalah barang digital prabayar, jadi umumnya tidak bisa dikembalikan setelah terbit. Kalau Anda terlanjur dipotong tapi voucher tidak keluar, hubungi admin dan akan kami bantu.',
-          'about.title': 'Tentang Warkopsaja',
-          'about.body': 'Internet hotspot WiFi prabayar yang terjangkau untuk warga Pulau Balang Lompo. Tanpa berkas, tanpa kontrak — tinggal pilih paket dan konek.',
-          'about.h1t': 'Layanan 24/7', 'about.h1d': 'Beli dan konek kapan saja, siang atau malam.',
-          'about.h2t': 'Voucher instan', 'about.h2d': 'Voucher dibuat otomatis setelah pembayaran.',
-          'about.h3t': 'Prabayar, tanpa kontrak', 'about.h3d': 'Bayar sesuai pemakaian. Berhenti kapan saja.',
-          'contact.title': 'Kontak', 'contact.wa': 'WhatsApp', 'contact.wadesc': 'Ketuk untuk chat admin kami',
-          'contact.loc': 'Lokasi', 'contact.locval': 'Pulau Balang Lompo, Pangkep, Sulawesi Selatan',
-          'contact.hours': 'Jam operasional', 'contact.hoursval': 'Setiap hari, 24 jam (voucher otomatis)',
+          'how.title': 'Cara pakai', 'how.sub': 'Empat langkah.',
+          'how.s1t': 'Pilih paket', 'how.s1d': 'Tentukan durasi dan kecepatan yang sesuai.',
+          'how.s2t': 'Bayar', 'how.s2d': 'QRIS, GoPay, transfer bank, dan metode lainnya.',
+          'how.s3t': 'Terima voucher', 'how.s3d': 'Username dan password langsung muncul di layar.',
+          'how.s4t': 'Konek', 'how.s4d': 'Login ke hotspot, mulai online.',
+          'social.title': 'Ikuti kami', 'social.sub': 'Info paket dan promo terbaru.',
+          'social.ig': 'Instagram', 'social.wa': 'WhatsApp', 'social.wad': 'Chat kami',
+          'faq.title': 'Pertanyaan', 'faq.sub': 'Jawaban untuk yang paling sering ditanya.',
+          'faq.q1': 'Berapa lama masa aktif vouchernya?', 'faq.a1': 'Tiap paket menampilkan masa aktifnya (misal 5 hari). Hitungan mulai saat pertama kali login, dan voucher berlaku sampai masa aktif habis.',
+          'faq.q2': 'Bisa pindah-pindah HP atau laptop pakai 1 voucher?', 'faq.a2': 'Tiap voucher untuk satu perangkat dalam satu waktu. Untuk menyambungkan perangkat lain, beli voucher lagi.',
+          'faq.q3': 'Kalau lupa username/password gimana?', 'faq.a3': 'Username & password tampil tepat setelah pembayaran dan bisa disalin. Kalau hilang, hubungi admin via WhatsApp dengan menyebut nomor referensi.',
+          'faq.q4': 'Metode pembayaran apa saja yang didukung?', 'faq.a4': 'Pembayaran online lewat QRIS, GoPay, transfer bank, dan metode lain yang tersedia di popup pembayaran. Setelah terkonfirmasi, voucher tampil otomatis.',
+          'faq.q5': 'Internet lemot, gimana solusinya?', 'faq.a5': 'Tiap paket punya batas kecepatan (misal 7M/7M). Kecepatan juga dipengaruhi sinyal dan jumlah pengguna. Dekatkan perangkat ke hotspot untuk sinyal lebih baik.',
+          'faq.q6': 'Sudah bayar tapi voucher belum muncul?', 'faq.a6': 'Biarkan halaman ini terbuka — voucher muncul otomatis setelah pembayaran dikonfirmasi. Kalau tetap tidak muncul, hubungi admin via WhatsApp dengan nomor referensi.',
+          'faq.q7': 'Bisa refund kalau voucher gagal terbit?', 'faq.a7': 'Voucher adalah barang digital prabayar, jadi umumnya tidak bisa dikembalikan setelah terbit. Kalau Anda terlanjur dipotong tapi voucher tidak keluar, hubungi admin dan akan kami bantu.',
+          'about.title': 'Tentang', 'about.sub': 'Internet untuk Pulau Balang Lompo.',
+          'about.body1': 'Layanan internet hotspot prabayar untuk warga <strong>Pulau Balang Lompo, Sulawesi Selatan</strong>.',
+          'about.body2': 'Akses untuk semua — pelajar, pekerja, pedagang. Tanpa pendaftaran. Tanpa kartu fisik. Pilih paket, bayar, langsung konek.',
+          'about.body3': 'Bayar untuk yang kamu pakai.',
+          'about.h1t': '24/7', 'about.h1d': 'Nyala terus',
+          'about.h2t': 'Instan', 'about.h2d': 'Voucher otomatis',
+          'about.h3t': 'Prabayar', 'about.h3d': 'Tanpa kontrak',
+          'contact.title': 'Kontak', 'contact.sub': 'Tim kami siap membantu.', 'contact.wa': 'WhatsApp',
+          'contact.loc': 'Lokasi', 'contact.locval': 'Pulau Balang Lompo, Sulawesi Selatan, Indonesia',
+          'contact.hours': 'Jam Operasional', 'contact.hoursval': 'Layanan 24/7 · Support WhatsApp 08.00–22.00 WITA',
           'footer.loc': 'Pulau Balang Lompo, Sulawesi Selatan', 'footer.help': 'Butuh bantuan? Chat kami →',
           'modal.checkout': 'Pembelian', 'modal.voucherSub': 'Voucher hotspot WiFi',
           'modal.name': 'Nama', 'modal.namePh': 'Nama Anda',
@@ -526,6 +545,7 @@
       function applyI18n() {
         document.documentElement.lang = lang;
         $$('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+        $$('[data-i18n-html]').forEach((el) => { el.innerHTML = t(el.dataset.i18nHtml); });
         $$('[data-i18n-ph]').forEach((el) => { el.setAttribute('placeholder', t(el.dataset.i18nPh)); });
         $$('[data-i18n-aria]').forEach((el) => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
         $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
@@ -605,7 +625,7 @@
 
       /* ====================== FAQ ====================== */
       function renderFaq() {
-        const wrap = $('#faq');
+        const wrap = $('#faq-list');
         wrap.innerHTML = [1, 2, 3, 4, 5, 6, 7].map((i) =>
           '<div class="faq-item">' +
             '<button class="faq-q" aria-expanded="false" aria-controls="faq-a' + i + '" id="faq-b' + i + '">' +
@@ -615,7 +635,7 @@
           '</div>'
         ).join('');
       }
-      $('#faq').addEventListener('click', (e) => {
+      $('#faq-list').addEventListener('click', (e) => {
         const q = e.target.closest('.faq-q');
         if (!q) return;
         const open = q.getAttribute('aria-expanded') === 'true';
